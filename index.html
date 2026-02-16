@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Calc Solver Practice 2026</title>
+<style>
+body {font-family: Arial, sans-serif; background: #f0f8ff; text-align: center; padding: 20px;}
+h1 {color: #333;}
+p {color: #555;}
+#calc {background: #fff; border: 2px solid #ccc; padding: 20px; width: 320px; margin: 20px auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
+#display {font-size: 32px; background: #eee; padding: 10px; margin-bottom: 10px; border: 1px solid #aaa; border-radius: 5px;}
+#target {color: red; font-size: 24px; margin: 10px 0;}
+#moves {color: blue; font-size: 20px;}
+button {width: 70px; height: 60px; font-size: 24px; margin: 5px; border: none; border-radius: 8px; background: #4CAF50; color: white; cursor: pointer;}
+button:hover {background: #45a049;}
+button.operator {background: #ff9800;}
+button.operator:hover {background: #e68900;}
+button.clear {background: #f44336;}
+button.clear:hover {background: #da190b;}
+</style>
+</head>
+<body>
+<h1>Calc Solver: Math Equation Mastery Tool</h1>
+<p>Use limited operations to reach the target! Perfect for extra credit practice in class.</p>
+<div id="calc">
+  <div id="display">0</div>
+  <div id="target">Target: 24</div>
+  <div id="moves">Moves: 0</div>
+  <button onclick="press('7')">7</button>
+  <button onclick="press('8')">8</button>
+  <button onclick="press('9')">9</button>
+  <button class="operator" onclick="press('/')">/</button><br>
+  <button onclick="press('4')">4</button>
+  <button onclick="press('5')">5</button>
+  <button onclick="press('6')">6</button>
+  <button class="operator" onclick="press('*')">*</button><br>
+  <button onclick="press('1')">1</button>
+  <button onclick="press('2')">2</button>
+  <button onclick="press('3')">3</button>
+  <button class="operator" onclick="press('-')">-</button><br>
+  <button onclick="press('0')">0</button>
+  <button onclick="press('.')">.</button>
+  <button class="operator" onclick="press('+')">+</button>
+  <button class="clear" onclick="clearDisplay()">C</button>
+</div>
+
+<script>
+let current = '0';
+let moves = 0;
+const target = 24; // Change to whatever degenerate number you want
+
+function press(value) {
+  if (current === '0' && value !== '.') {
+    current = value;
+  } else {
+    current += value;
+  }
+  moves++;
+  updateDisplay();
+  checkWin();
+}
+
+function clearDisplay() {
+  current = '0';
+  moves = 0;
+  updateDisplay();
+}
+
+function updateDisplay() {
+  document.getElementById('display').innerText = current;
+  document.getElementById('moves').innerText = 'Moves: ' + moves;
+}
+
+function checkWin() {
+  if (parseFloat(current) === target) {
+    alert('Solved in ' + moves + ' moves! You sneaky math fuck.');
+  }
+}
+</script>
+</body>
+</html>
