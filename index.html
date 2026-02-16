@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Game Library</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    background: #111;
+    color: white;
+    text-align: center;
+}
+
+button{
+    padding: 15px;
+    margin: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#gameArea{
+    margin-top: 20px;
+}
+
+canvas{
+    background: black;
+}
+
+</style>
+
+</head>
+<body>
+
+<h1>🎮 Game Library</h1>
+
+<div id="menu">
+
+<button onclick="loadClicker()">Clicker Game</button>
+
+<button onclick="loadDodge()">Dodge Game</button>
+
+</div>
+
+<div id="gameArea"></div>
+
+<script>
+
+let gameArea = document.getElementById("gameArea")
+
+// CLICKER GAME
+
+function loadClicker(){
+
+gameArea.innerHTML = `
+
+<h2>Clicker Game</h2>
+
+<p>Score: <span id="score">0</span></p>
+
+<button onclick="clickScore()">Click Me!</button>
+
+`
+
+window.score = 0
+
+}
+
+function clickScore(){
+
+score++
+
+document.getElementById("score").innerText = score
+
+}
+
+
+// DODGE GAME
+
+function loadDodge(){
+
+gameArea.innerHTML = `
+
+<h2>Dodge Game</h2>
+
+<canvas id="canvas" width="400" height="400"></canvas>
+
+`
+
+startDodge()
+
+}
+
+
+function startDodge(){
+
+let canvas = document.getElementById("canvas")
+
+let ctx = canvas.getContext("2d")
+
+let player = {x:180,y:350,size:20}
+
+let enemy = {x:Math.random()*380,y:0,size:20}
+
+document.onmousemove = function(e){
+
+player.x = e.clientX - canvas.offsetLeft
+
+}
+
+function update(){
+
+ctx.clearRect(0,0,400,400)
+
+ctx.fillStyle="white"
+ctx.fillRect(player.x,player.y,player.size,player.size)
+
+ctx.fillStyle="red"
+ctx.fillRect(enemy.x,enemy.y,enemy.size,enemy.size)
+
+enemy.y += 3
+
+if(enemy.y > 400){
+
+enemy.y = 0
+enemy.x = Math.random()*380
+
+}
+
+if(enemy.x < player.x + player.size &&
+enemy.x + enemy.size > player.x &&
+enemy.y < player.y + player.size &&
+enemy.y + enemy.size > player.y){
+
+alert("Game Over")
+enemy.y = 0
+
+}
+
+requestAnimationFrame(update)
+
+}
+
+update()
+
+}
+
+</script>
+
+</body>
+</html>
